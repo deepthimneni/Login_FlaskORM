@@ -1,17 +1,41 @@
 from flask import Flask
-from utils.settings import MYSQL_USER, MYSQL_PASSWORD, MYSQL_DB, MYSQL_HOST
-from authentication.blueprint_auth import authentication
-from utils.extensions import db
+from api.authentication_api import authentication
+from models.extensions import db
+from dotenv import load_dotenv
+import os
 
 app = Flask(__name__)
 
-app.config["MYSQL_USER"] = MYSQL_USER
-app.config["MYSQL_PASSWORD"] = MYSQL_PASSWORD
-app.config["MYSQL_DB"] = MYSQL_DB
-app.config["MYSQL_HOST"] = MYSQL_HOST
-app.config["MYSQL_PORT"] = 3306
-app.config["MYSQL_CURSORCLASS"] = "DictCursor"
+load_dotenv()
+
+# MYSQL Config- Variables Declaring, Initializing
+# MYSQL_USER = os.getenv("MYSQL_USER")
+# MYSQL_PASSWORD = os.getenv("MYSQL_PASSWORD")
+# MYSQL_DB = os.getenv("MYSQL_DB")
+# MYSQL_HOST = os.getenv("MYSQL_HOST")
+# MYSQL_PORT = os.getenv("MYSQL_PORT")
+
+# JWT Config
+
+# Using Variables
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("SQLALCHEMY_DATABASE_URI")
+app.config["SQLALCHEMY_ECHO"] = True
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"]= False
+# app.config["MYSQL_USER"] = os.getenv("MYSQL_USER")
+# app.config["MYSQL_PASSWORD"] = os.getenv("MYSQL_PASSWORD")
+# app.config["MYSQL_DB"] = os.getenv("MYSQL_DB")
+# app.config["MYSQL_HOST"] = os.getenv("MYSQL_HOST")
+# app.config["MYSQL_PORT"] = int(os.getenv("MYSQL_PORT"))
+# app.config["MYSQL_CURSORCLASS"] = "DictCursor"
 
 app.register_blueprint(authentication, url_prefix="/api/auth")
 
+#app flask
+#arguments1 - authentication
+#arguments2- url_prefix
+
 db.init_app(app)
+
+with app.app_context():
+    db.create_all()
+

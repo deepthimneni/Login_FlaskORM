@@ -1,4 +1,9 @@
 flask
-flask_mysqldb
+flask_sqlalchemy
 PyJWT
 python-dotenv
+pymysql
+
+
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://{dptim}:{Deepu805!}@localhost:3306/{demo1}'
+
