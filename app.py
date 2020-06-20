@@ -1,5 +1,6 @@
 from flask import Flask
 from api.authentication_api import authentication
+from api.admin_authentication_api import admin_authentication
 from models.extensions import db
 from dotenv import load_dotenv
 import os
@@ -28,11 +29,12 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"]= False
 # app.config["MYSQL_PORT"] = int(os.getenv("MYSQL_PORT"))
 # app.config["MYSQL_CURSORCLASS"] = "DictCursor"
 
-app.register_blueprint(authentication, url_prefix="/api/auth")
-
+app.register_blueprint(authentication, url_prefix="/api/auth_user")
+#modular_development
 #app flask
 #arguments1 - authentication
 #arguments2- url_prefix
+app.register_blueprint(admin_authentication, url_prefix = "/api/auth_admin")
 
 db.init_app(app)
 

@@ -4,6 +4,3 @@ PyJWT
 python-dotenv
 pymysql
 
-
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://{dptim}:{Deepu805!}@localhost:3306/{demo1}'
-
